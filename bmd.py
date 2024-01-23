@@ -243,6 +243,7 @@ class SpeedEditor:
 		# I "think" what gets returned here is the timeout after which auth
 		# needs to be done again (returns 600 for me which is plausible)
 		timeout = int.from_bytes(data[2:4], 'little')
+		print(f"Speed editor authenticated for {timeout}s")
 		# reauthenticate 10 seconds before the timeout
 		scheduler = threading.Timer(timeout - 10, self.authenticate)
 		scheduler.start()
