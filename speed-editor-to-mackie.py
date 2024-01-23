@@ -109,11 +109,10 @@ class MackieHandler(SpeedEditorHandler):
         while True:
             msg = self.midi_in.receive()
             if msg.type == 'note_on':
-                if msg.note in (self.MCU_PLAY, self.MCU_REC):
+                if msg.note == self.MCU_PLAY:
                     self.play_state = msg.velocity > 0
-                    led_set = SpeedEditorLed.CAM1 | SpeedEditorLed.CAM2 | SpeedEditorLed.CAM3
-                    if msg.note == self.MCU_REC:
-                        led_set |= SpeedEditorLed.CAM4 | SpeedEditorLed.CAM5 | SpeedEditorLed.CAM6 | SpeedEditorLed.CAM7 | SpeedEditorLed.CAM8 | SpeedEditorLed.CAM9
+                    # LED indication of play/rec
+                    led_set = SpeedEditorLed.CAM1 | SpeedEditorLed.CAM2 | SpeedEditorLed.CAM3 | SpeedEditorLed.CAM4 | SpeedEditorLed.CAM5 | SpeedEditorLed.CAM6 | SpeedEditorLed.CAM7 | SpeedEditorLed.CAM8 | SpeedEditorLed.CAM9
                     self.leds &= ~led_set
                     if self.play_state:
                         self.leds |= led_set
